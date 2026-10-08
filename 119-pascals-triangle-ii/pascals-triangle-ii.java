@@ -1,20 +1,16 @@
 import java.util.*;
 class Solution {
     public List<Integer> getRow(int rowIndex) {
-        List<List<Integer>> triangle = new ArrayList<>();
-        for (int row = 0; row <= rowIndex; row++) {
-            List<Integer> current = new ArrayList<>();
-            for (int col = 0; col <= row; col++) {
-                current.add(1);
-            }
-            for (int col = 1; col < row; col++) {
-                int value = triangle.get(row - 1).get(col - 1) + triangle.get(row - 1).get(col);
-                current.set(col, value);
-            }
- 
-            triangle.add(current);
+        List<Integer> row = new ArrayList<>();
+        for (int col = 0; col <= rowIndex; col++) {
+            row.add(0);
         }
- 
-        return triangle.get(rowIndex);
+        row.set(0, 1);
+        for (int level = 1; level <= rowIndex; level++) {
+            for (int col = level; col >= 1; col--) {
+                row.set(col, row.get(col) + row.get(col - 1));
+            }
+        }
+        return row;
     }
 }
